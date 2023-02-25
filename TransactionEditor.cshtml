@@ -1,0 +1,67 @@
+﻿@model BankingApp.Models.TransactionModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "NewTransaction";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>New Transaction</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="TransactionEditor" asp-controller="Transactions" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AmountSendInUSD" class="control-label"></label>
+                <input asp-for="AmountSendInUSD" class="form-control" />
+                <span asp-validation-for="AmountSendInUSD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Amount In INR</label>
+                <label class="form-control" id="AmountInINR"></label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sender" class="control-label"></label>
+                <input asp-for="Sender" class="form-control" />
+                <span asp-validation-for="Sender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Receiver" class="control-label"></label>
+                <input asp-for="Receiver" class="form-control" />
+                <span asp-validation-for="Receiver" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurposeID" class="control-label"></label>
+                <select asp-for="PurposeID" class="form-control" asp-items="Model.Purposes">
+                </select>
+                <span asp-validation-for="PurposeID" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-top:20px;">
+                <input type="submit" value="Send Money" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-top:20px;">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+        $('#AmountSendInUSD').change(function () {
+            
+            //we need to bring the data from Backend
+
+            var exchaneRate = 80;
+            var amountInINR = $(this).val() * 80;
+            $('#AmountInINR').html(amountInINR);
+        });
+});
+
+</script>
