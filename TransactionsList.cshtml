@@ -1,0 +1,64 @@
+﻿@model IList<BankingApp.Entities.Transaction>
+
+@{
+    ViewData["Title"] = "TransactionsList";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<h1>Transactions <a class="btn btn-warning" 
+   href="@Url.Action("TransactionEditor","Transactions")"
+   style="float:right;">Send Money</a></h1>
+
+
+
+<div>
+    @if (@Model != null && Model.Count > 0)
+    {
+            <table class="table table-striped table-hover">
+                <thead class="table table-dark">
+                    <tr>
+                        <th>Transaction Id</th>
+                        <th>Amount Send(USD)</th>
+                        <th>Amount Receive(INR)</th>
+                        <th>Sender</th>
+                        <th>Reciever</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var transaction in @Model)
+                {
+                            <tr>
+                                <td>
+                            @transaction.TransactionId
+                                </td>
+                                <td>
+                            @transaction.AmountSendInUsd
+                                </td>
+                                <td>
+                            @transaction.AmountReceivedInInr
+                                </td>
+                                <td>
+                            @transaction.Sender
+                                </td>
+                                <td>
+                            @transaction.Receiver
+                                </td>
+                                <td>
+                            @transaction.Purpose.Title
+                                </td>
+
+                            </tr>
+                }
+                </tbody>
+            </table>
+    }
+
+    else
+    {
+            <div class="alert alert-warning" role="alert">
+               No transactions! Click Send Money To Transfer
+            </div>
+    }
+</div>
